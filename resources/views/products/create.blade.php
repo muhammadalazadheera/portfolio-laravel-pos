@@ -37,31 +37,42 @@
 
 
 @section('main')
-<div class="row">
-    <div class="col-8">
-        <div class="card">
-            <div class="card-header">
-                <h5>Add a new product</h5>
-            </div>
-            <div class="card-body">
-                <form>
+<form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
+    @csrf
+    <div class="row">
+        <div class="col-8">
+            <div class="card">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <div class="card-header">
+                    <h5>Add a new product</h5>
+                </div>
+                <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Product Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Product Name">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Product Name">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Add A Brief Description</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1"
+                            rows="4"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Select A Brand</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select class="form-control" id="exampleFormControlSelect1" name="brand_id">
                             <option selected disabled>Please select a brand</option>
-                            <option>Samsung</option>
-                            <option>Iphone</option>
-                            <option>Nokia</option>
-                            <option>Oppo</option>
-                            <option>Xiaomi</option>
+                            <option value="1">Samsung</option>
+                            <option value="2">Iphone</option>
+                            <option value="3">Nokia</option>
+                            <option value="4">Oppo</option>
+                            <option value="5">Xiaomi</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -76,20 +87,20 @@
                         </select>
                     </div>
                     <button type="submit" class="btn  btn-primary">Add</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="image">Product Name</label>
-                    <input type="file" class="dropify form-control" id="image">
                 </div>
             </div>
         </div>
-    </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="image">Product Name</label>
+                        <input type="file" class="dropify form-control" id="image" name="image">
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
 </div>
 @endsection
 

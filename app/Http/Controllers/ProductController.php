@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -28,7 +29,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'brand_id' => 'required',
+            'image' => 'required | image | mimes:jpg,bmp,png',
+        ]);
+
+        $file = $request->file('image');
+
+        if (isset($file)) {
+            $imageName = strtolower(str_replace(' ', '_', $request->name)) . '.'
+                . $file->getClientOriginalExtension();
+
+            $file->storeAs('products', $imageName);
+        }
+
+        $product = new Product();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->brand_id = $request->brand_id;
+        $product->image = $imageName;
+        $product->save();
+
+        return 'Product successfully added.';
     }
 
     /**
