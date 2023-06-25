@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -42,7 +43,11 @@ class ProductController extends Controller
             $imageName = strtolower(str_replace(' ', '_', $request->name)) . '.'
                 . $file->getClientOriginalExtension();
 
-            $file->storeAs('products', $imageName);
+            Storage::putFileAs(
+                'products',
+                $request->file('image'),
+                $imageName
+            );
         }
 
         $product = new Product();
@@ -50,7 +55,13 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->brand_id = $request->brand_id;
         $product->image = $imageName;
+
         $product->save();
+
+        $product->categories()->attach($request->categories);
+
+
+
 
         return 'Product successfully added.';
     }
