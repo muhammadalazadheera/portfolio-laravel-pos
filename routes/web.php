@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,12 +18,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'auth'], function () {
+
+    // Route to Dashboard
     Route::get('/', function () {
         return view('welcome');
     });
-    Route::resource('products', ProductController::class);
-});
 
-//Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/reset', [AuthController::class, 'reset'])->name('reset');
-Route::get('/forgot', [AuthController::class, 'forgot'])->name('forgot');
+    // Managing the products
+    Route::resource('products', ProductController::class);
+    // Managing the brands
+    Route::resource('brands', BrandController::class);
+    // Managing the categories
+    Route::resource('categories', CategoryController::class);
+});

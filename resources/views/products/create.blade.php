@@ -37,7 +37,7 @@
 
 
 @section('main')
-<form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-8">

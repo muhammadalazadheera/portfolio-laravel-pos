@@ -28,16 +28,16 @@
                     <a href="#!" class="nav-link "><span class="pcoded-micon">
                             <i class="feather icon-package"></i></span><span class="pcoded-mtext">Products</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="bc_alert.html">Products</a></li>
-                        <li><a href="bc_alert.html">Add New Product</a></li>
+                        <li><a href="{{ route('products.index') }}">Products</a></li>
+                        <li><a href="{{ route('products.create') }}">Add New Product</a></li>
                     </ul>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-activity"></i></span><span class="pcoded-mtext">Brands</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="bc_alert.html">Brands</a></li>
-                        <li><a href="bc_alert.html">Add New Brands</a></li>
+                        <li><a href="{{ route('brands.index') }}">Brands</a></li>
+                        <li><a href="{{ route('brands.create') }}">Add New Brands</a></li>
                     </ul>
                 </li>
                 <li class="nav-item pcoded-hasmenu">
