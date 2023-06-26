@@ -49,7 +49,7 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        //
+        return view('brands.edit', compact('brand'));
     }
 
     /**
@@ -57,7 +57,10 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        //
+        $request->validate(['name' => 'required']);
+        $brand->name = $request->name;
+        $brand->update();
+        return redirect()->route('brands.index');
     }
 
     /**
@@ -65,6 +68,7 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        $brand->delete();
+        return redirect()->back();
     }
 }

@@ -44,8 +44,17 @@
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-layers"></i></span><span class="pcoded-mtext">Categories</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="bc_alert.html">Categories</a></li>
-                        <li><a href="bc_alert.html">Add New Category</a></li>
+                        <li><a href="{{ route('categories.index') }}">Categories</a></li>
+                        <li><a href="{{ route('categories.create') }}">Add New Category</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item pcoded-hasmenu">
+                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-hash"></i></span><span class="pcoded-mtext">Batch</span></a>
+                    <ul class="pcoded-submenu">
+                        <li><a href="{{ route('batches.index') }}">Batches</a></li>
+                        <li><a href="{{ route('batches.create') }}">Add New Batch</a></li>
                     </ul>
                 </li>
 
@@ -65,7 +74,7 @@
                 </li>
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-edit"></i></span><span class="pcoded-mtext">Reports</span></a>
+                                class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Reports</span></a>
                     <ul class="pcoded-submenu">
                         <li><a href="bc_alert.html">Daily Report</a></li>
                         <li><a href="bc_alert.html">Weekly Report</a></li>

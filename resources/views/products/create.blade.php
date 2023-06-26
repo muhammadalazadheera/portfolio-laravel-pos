@@ -37,7 +37,7 @@
 
 
 @section('main')
-<form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-8">
@@ -68,22 +68,18 @@
                         <label for="exampleFormControlSelect1">Select A Brand</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="brand_id">
                             <option selected disabled>Please select a brand</option>
-                            <option value="1">Samsung</option>
-                            <option value="2">Iphone</option>
-                            <option value="3">Nokia</option>
-                            <option value="4">Oppo</option>
-                            <option value="5">Xiaomi</option>
+                            @foreach ($brands as $brand)
+                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="categories">Select Categories</label>
                         <select class="form-control js-examples-basic-multiple" name="categories[]" id="categories"
                             multiple resolve>
-                            <option>2/16</option>
-                            <option>3/32</option>
-                            <option>4/64</option>
-                            <option>5" Display</option>
-                            <option>6" Display</option>
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <button type="submit" class="btn  btn-primary">Add</button>

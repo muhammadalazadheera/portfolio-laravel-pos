@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BatchController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
@@ -30,4 +31,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('brands', BrandController::class);
     // Managing the categories
     Route::resource('categories', CategoryController::class);
+    // Managing the batches
+    Route::resource('batches', BatchController::class);
 });

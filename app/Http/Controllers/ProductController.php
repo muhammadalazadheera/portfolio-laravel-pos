@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +25,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $brands = Brand::all();
+        $categories = Category::all();
+        return view('products.create', compact('brands', 'categories'));
     }
 
     /**
@@ -61,10 +65,7 @@ class ProductController extends Controller
 
         $product->categories()->attach($request->categories);
 
-
-
-
-        return 'Product successfully added.';
+        return redirect()->route('products.index');
     }
 
     /**
