@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('batches', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('batch_no')->unique();
             $table->integer('product_id');
             $table->integer('quantity');
             $table->integer('purchase_price');
             $table->integer('sell_price');
+            $table->integer('supplier_id');
+            $table->integer('total_purchase_cost');
+            $table->integer('due_amount')->default(0);
+            $table->enum('status', ['paid', 'partial', 'due'])->default('paid');
             $table->timestamps();
         });
     }

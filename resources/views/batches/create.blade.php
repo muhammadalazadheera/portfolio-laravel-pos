@@ -3,41 +3,30 @@
 
 @push('css')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css'>
 <style>
-    .select2-container--default .select2-selection--multiple {
-        border-radius: 0px !important;
-        border: 2px solid rgba(0, 0, 0, 0.15) !important;
-        padding: 8px 5px 13px 15px;
-    }
-
-    .select2-container--default .select2-selection--multiple .select2-selection__choice {
-        background-color: #1abc9c;
-        border-radius: 0px;
-        border: 1px solid #000000;
-        color: #ffffff;
-        padding-left: 40px;
-        padding-right: 15px;
-    }
-
-
-    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    .select2-container--default .select2-selection--single {
         background-color: #fff;
-        border: none;
-        border-radius: 0;
+        border: 2px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0px;
+        height: 49px;
     }
 
-    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
-    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
-        background-color: #ff6161;
-        color: #ffffff;
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 45px;
+        margin-left: 10px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        top: 10px;
+        right: 5px;
     }
 </style>
 @endpush
 
 
 @section('main')
-<form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('batches.store') }}" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-8">
@@ -52,46 +41,74 @@
                 </div>
                 @endif
                 <div class="card-header">
-                    <h5>Add a new product</h5>
+                    <h5>Add a new batch of product</h5>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Product Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Product Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Add A Brief Description</label>
-                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1"
-                            rows="4"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Select A Brand</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="brand_id">
-                            <option selected disabled>Please select a brand</option>
-                            @foreach ($brands as $brand)
-                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                        <label for="products">Select A Product</label>
+                        <select class="form-control js-example-basic-single" name="product" id="products">
+                            @foreach ($products as $product)
+                            <option value="{{ $product->id }}">{{ $product->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="categories">Select Categories</label>
-                        <select class="form-control js-examples-basic-multiple" name="categories[]" id="categories"
-                            multiple resolve>
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
+                        <label for="exampleInputEmail1">Quantity</label>
+                        <input type="number" class="form-control" id="name" name="quantity" placeholder="Quantity">
                     </div>
-                    <button type="submit" class="btn  btn-primary">Add</button>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Per Unit Purchase Price</label>
+                        <input type="number" class="form-control" id="name" name="purchase_price"
+                            placeholder="Per Unit Purchase Price">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Per Unit Sell Price</label>
+                        <input type="number" class="form-control" id="name" name="sell_price"
+                            placeholder="Per Unit Sell Price">
+                    </div>
+
+                    <button type="submit" class="btn  btn-primary">Add Batch</button>
                 </div>
             </div>
         </div>
         <div class="col-4">
             <div class="card">
+                <div class="card-header">
+                    <h5>-</h5>
+                </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="image">Product Name</label>
-                        <input type="file" class="dropify form-control" id="image" name="image">
+                        <label for="products">Supplier</label>
+                        <select class="form-control js-examples-basic-multiple" name="product" id="products">
+                            @foreach ($products as $product)
+                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Total Purchase Cost</label>
+                        <input type="number" class="form-control" id="name" name="total_purchase_cost"
+                            placeholder="Total Purchase Cost">
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Payment Status:</label>
+                        <select name="status" id="status" class="form-control">
+                            <option disabled selected>Payment Status</option>
+                            @foreach(['paid', 'partial', 'due'] as $option)
+                            <option value="{{ $option }}" {{ old('status')==$option ? 'selected' : '' }}>{{
+                                ucfirst($option) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Paid Amount</label>
+                        <input type="number" class="form-control" id="name" name="total_purchase_cost"
+                            placeholder="Total Purchase Cost">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Due Amount</label>
+                        <input type="number" class="form-control" id="name" name="total_purchase_cost"
+                            placeholder="Total Purchase Cost">
                     </div>
                 </div>
             </div>
@@ -101,18 +118,13 @@
 @endsection
 
 @push('scripts')
-<script src='https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js'></script>
 <script src="./script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" />
 <script>
     $(document).ready(function() {
-        $('.js-examples-basic-multiple').select2({
+        $('#products').select2({
             placeholder: "Select categories.",
         });
-
-        $('.dropify').dropify();
     });
 </script>
 @endpush
