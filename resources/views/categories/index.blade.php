@@ -4,6 +4,24 @@
 
 @push('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
+
+<style>
+    .jsalertWindow>* {
+        font-family: "Open Sans", sans-serif !important;
+        text-transform: capitalize;
+    }
+
+    .jsalertImg {
+        max-height: none !important;
+        width: 25%;
+        padding: 10px !important;
+        border: 1px solid black;
+        border-radius: 50%;
+        margin: 34px auto !important;
+        font-family: "Open Sans", sans-serif !important;
+    }
+</style>
+
 @endpush
 
 @section('main')
@@ -29,7 +47,7 @@
                     <td><span class="badge badge-success"> {{ $category->products->count() }} </span> </td>
                     <td><a class="text-info" href="{{ route('categories.edit', $category->id) }}"><i
                                 class="feather icon-edit"></i> Edit</a>|
-                        <a class="text-danger" href="javascript:{}" onclick="deleteBrand({{ $category->id }})"><i
+                        <a class="text-danger" href="javascript:{}" onclick="deleteFunction({{ $category->id }})"><i
                                 class="feather icon-trash"></i>
                             Delete</a>
                         <form method="POST" id="deleteForm_{{ $category->id }}"
@@ -65,7 +83,7 @@
 });
 
 
-function deleteBrand (id) {
+function deleteFunction (id) {
     
     JSAlert.confirm("This cant be restored.", "Sure you want to delete ?", JSAlert.Icons.Deleted).then(function(result) {
 

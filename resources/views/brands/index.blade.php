@@ -45,7 +45,7 @@
                     <td>0</td>
                     <td><a class="text-info" href="{{ route('brands.edit', $brand->id) }}"><i
                                 class="feather icon-edit"></i> Edit</a>|
-                        <a class="text-danger" href="javascript:{}" onclick="deleteBrand({{ $brand->id }})"><i
+                        <a class="text-danger" href="javascript:{}" onclick="deleteFunction({{ $brand->id }})"><i
                                 class="feather icon-trash"></i>
                             Delete</a>
                         <form method="POST" id="deleteForm_{{ $brand->id }}"
@@ -81,7 +81,7 @@
     });
 
 
-    function deleteBrand (id) {
+    function deleteFunction (id) {
         
         JSAlert.confirm("This cant be restored.", "Sure you want to delete ?", JSAlert.Icons.Deleted).then(function(result) {
 

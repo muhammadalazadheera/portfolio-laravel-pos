@@ -6,7 +6,6 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -81,7 +80,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $brands = Brand::all();
+        $categories = Category::all();
+        return view('products.edit', compact('product', 'brands', 'categories'));
     }
 
     /**
@@ -89,7 +90,38 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'brand_id' => 'required',
+            'image' => 'image | mimes:jpg,bmp,png',
+        ]);
+
+        $file = $request->file('image');
+
+        if (isset($file)) {
+            $imageName = strtolower(str_replace(' ', '_', $request->name)) . '.'
+                . $file->getClientOriginalExtension();
+
+            Storage::putFileAs(
+                'products',
+                $request->file('image'),
+                $imageName
+            );
+        } else {
+            $imageName = $product->image;
+        }
+
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->brand_id = $request->brand_id;
+        $product->image = $imageName;
+
+        $product->save();
+
+        $product->categories()->attach($request->categories);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -97,6 +129,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->back();
     }
 }
