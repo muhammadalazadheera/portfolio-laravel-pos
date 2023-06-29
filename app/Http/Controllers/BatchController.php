@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Batch;
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class BatchController extends Controller
@@ -22,7 +23,8 @@ class BatchController extends Controller
     public function create()
     {
         $products = Product::all();
-        return view('batches.create', compact('products'));
+        $suppliers = Supplier::all();
+        return view('batches.create', compact('products', 'suppliers'));
     }
 
     /**

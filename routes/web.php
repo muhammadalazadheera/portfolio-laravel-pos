@@ -5,6 +5,8 @@ use App\Http\Controllers\BatchController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
+use App\Models\Supplier;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,4 +35,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('categories', CategoryController::class);
     // Managing the batches
     Route::resource('batches', BatchController::class);
+    // Managing the suppliers
+    Route::resource('suppliers', SupplierController::class);
 });

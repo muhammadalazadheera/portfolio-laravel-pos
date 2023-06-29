@@ -40,6 +40,7 @@
                         <li><a href="{{ route('brands.create') }}">Add New Brands</a></li>
                     </ul>
                 </li>
+
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-layers"></i></span><span class="pcoded-mtext">Categories</span></a>
@@ -61,6 +62,7 @@
                 <li class="nav-item pcoded-menu-caption">
                     <label>People</label>
                 </li>
+
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-users"></i></span><span class="pcoded-mtext">Customers</span></a>
@@ -68,15 +70,19 @@
                         <li><a href="bc_alert.html">Customers</a></li>
                         <li><a href="bc_alert.html">Add customer</a></li>
                     </ul>
+                </li>
 
+                <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-grid"></i></span><span class="pcoded-mtext">Suppliers</span></a>
 
                     <ul class="pcoded-submenu">
-                        <li><a href="bc_alert.html">Customers</a></li>
-                        <li><a href="bc_alert.html">Add customer</a></li>
+                        <li><a href="{{ route('suppliers.index') }}">Suppliers</a></li>
+                        <li><a href="{{ route('suppliers.create') }}">Add Supplier</a></li>
                     </ul>
+                </li>
 
+                <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-user-check"></i></span><span class="pcoded-mtext">Stuffs</span></a>
                     <ul class="pcoded-submenu">

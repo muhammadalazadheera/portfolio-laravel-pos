@@ -22,13 +22,28 @@
         right: 5px;
     }
 </style>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endpush
 
 
 @section('main')
 <form method="POST" action="{{ route('batches.store') }}" enctype="multipart/form-data">
     @csrf
-    <div class="row">
+    <div class="row" x-data="{ 
+        quantity: 0, 
+        purchase_price: 0, 
+        total_purchase_price: 0,
+        status: '',
+        paid: true,
+        
+        disableAmount(){
+            if(this.status == 'paid'){
+                return this.paid = true;
+            }else{
+                this.paid = false;
+            }
+        }
+    }" x-effect="total_purchase_price = quantity * purchase_price">
         <div class="col-8">
             <div class="card">
                 @if ($errors->any())
@@ -53,16 +68,19 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Quantity</label>
-                        <input type="number" class="form-control" id="name" name="quantity" placeholder="Quantity">
+                        <label for="exampleInputEmail1">Quantity <small class="text-info">[Piece]</small></label>
+                        <input x-model.number="quantity" type="number" class="form-control" id="name" name="quantity"
+                            placeholder="Quantity">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Per Unit Purchase Price</label>
-                        <input type="number" class="form-control" id="name" name="purchase_price"
-                            placeholder="Per Unit Purchase Price">
+                        <label for="exampleInputEmail1">Per Unit Purchase Price <small
+                                class="text-info">[Taka]</small></label>
+                        <input x-model="purchase_price" type="number" class="form-control" id="name"
+                            name="purchase_price" x-model.number="purchase_price" placeholder="Per Unit Purchase Price">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Per Unit Sell Price</label>
+                        <label for="exampleInputEmail1">Per Unit Sell Price <small
+                                class="text-info">[Taka]</small></label>
                         <input type="number" class="form-control" id="name" name="sell_price"
                             placeholder="Per Unit Sell Price">
                     </div>
@@ -78,35 +96,37 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="products">Supplier</label>
-                        <select class="form-control js-examples-basic-multiple" name="product" id="products">
-                            @foreach ($products as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                        <label for="supplier">Supplier</label>
+                        <select class="form-control js-examples-basic-multiple" name="supplier" id="supplier">
+                            @foreach ($suppliers as $supplier)
+                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Total Purchase Cost</label>
-                        <input type="number" class="form-control" id="name" name="total_purchase_cost"
-                            placeholder="Total Purchase Cost">
+                        <label for="exampleInputEmail1">Total Purchase Cost <small
+                                class="text-info">[Taka]</small></label>
+                        <input type="number" class="form-control" id="name" name="total_purchase_price"
+                            placeholder="Total Purchase Cost" x-model="total_purchase_price">
                     </div>
                     <div class="form-group">
                         <label for="status">Payment Status:</label>
-                        <select name="status" id="status" class="form-control">
+                        <select name="status" id="status" class="form-control" x-model="status"
+                            x-on:change="disableAmount()">
                             <option disabled selected>Payment Status</option>
                             @foreach(['paid', 'partial', 'due'] as $option)
-                            <option value="{{ $option }}" {{ old('status')==$option ? 'selected' : '' }}>{{
+                            <option value="{{ $option }}">{{
                                 ucfirst($option) }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Paid Amount</label>
+                        <label for="exampleInputEmail1">Paid Amount <small class="text-info">[Taka]</small></label>
                         <input type="number" class="form-control" id="name" name="total_purchase_cost"
-                            placeholder="Total Purchase Cost">
+                            placeholder="Total Purchase Cost" x-bind:disabled="paid">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Due Amount</label>
+                        <label for="exampleInputEmail1">Due Amount <small class="text-info">[Taka]</small></label>
                         <input type="number" class="form-control" id="name" name="total_purchase_cost"
                             placeholder="Total Purchase Cost">
                     </div>
@@ -114,16 +134,22 @@
             </div>
         </div>
 </form>
+<p>Payment Status: <span x-text="paid"></span></p>
 </div>
 @endsection
 
 @push('scripts')
 <script src="./script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#products').select2({
             placeholder: "Select categories.",
+        });
+
+        $('#supplier').select2({
+        placeholder: "Select categories.",
         });
     });
 </script>
