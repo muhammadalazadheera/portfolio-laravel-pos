@@ -22,7 +22,7 @@ class Product extends Model
         return $this->belongsToMany(Category::class)->withTimestamps();
     }
 
-    public function batch(): HasMany
+    public function batches(): HasMany
     {
         return $this->hasMany(Batch::class);
     }

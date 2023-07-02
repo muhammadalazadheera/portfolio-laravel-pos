@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Models\Supplier;
@@ -37,4 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('batches', BatchController::class);
     // Managing the suppliers
     Route::resource('suppliers', SupplierController::class);
+    // Managing the customers
+    Route::resource('customers', CustomerController::class);
+    // Managing Invoices
+    Route::resource('invoices', InvoiceController::class);
 });

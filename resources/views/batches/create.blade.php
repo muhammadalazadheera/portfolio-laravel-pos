@@ -29,21 +29,17 @@
 @section('main')
 <form method="POST" action="{{ route('batches.store') }}" enctype="multipart/form-data">
     @csrf
-    <div class="row" x-data="{ 
+    <div class="row"
+        x-effect="total_purchase_cost = quantity * purchase_price, due_amount = total_purchase_cost - paid_amount, paid_amount = total_purchase_cost - due_amount"
+        x-data="{ 
         quantity: 0, 
         purchase_price: 0, 
-        total_purchase_price: 0,
+        total_purchase_cost: 0,
         status: '',
-        paid: true,
-        
-        disableAmount(){
-            if(this.status == 'paid'){
-                return this.paid = true;
-            }else{
-                this.paid = false;
-            }
-        }
-    }" x-effect="total_purchase_price = quantity * purchase_price">
+        paid: false,
+        paid_amount: 0,
+        due_amount: 0,
+    }">
         <div class="col-8">
             <div class="card">
                 @if ($errors->any())
@@ -61,7 +57,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="products">Select A Product</label>
-                        <select class="form-control js-example-basic-single" name="product" id="products">
+                        <select class="form-control js-example-basic-single" name="product_id" id="products">
                             @foreach ($products as $product)
                             <option value="{{ $product->id }}">{{ $product->name }}</option>
                             @endforeach
@@ -75,8 +71,8 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Per Unit Purchase Price <small
                                 class="text-info">[Taka]</small></label>
-                        <input x-model="purchase_price" type="number" class="form-control" id="name"
-                            name="purchase_price" x-model.number="purchase_price" placeholder="Per Unit Purchase Price">
+                        <input x-model.number="purchase_price" type="number" class="form-control" id="name"
+                            name="purchase_price" placeholder="Per Unit Purchase Price">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Per Unit Sell Price <small
@@ -97,7 +93,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="supplier">Supplier</label>
-                        <select class="form-control js-examples-basic-multiple" name="supplier" id="supplier">
+                        <select class="form-control js-examples-basic-multiple" name="supplier_id" id="supplier">
                             @foreach ($suppliers as $supplier)
                             <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                             @endforeach
@@ -106,35 +102,34 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Total Purchase Cost <small
                                 class="text-info">[Taka]</small></label>
-                        <input type="number" class="form-control" id="name" name="total_purchase_price"
-                            placeholder="Total Purchase Cost" x-model="total_purchase_price">
+                        <input type="number" class="form-control" id="name" name="total_purchase_cost"
+                            placeholder="Total Purchase Cost" x-model="total_purchase_cost">
                     </div>
                     <div class="form-group">
                         <label for="status">Payment Status:</label>
                         <select name="status" id="status" class="form-control" x-model="status"
-                            x-on:change="disableAmount()">
-                            <option disabled selected>Payment Status</option>
+                            x-on:change="paid = (status === 'paid' || status ==='due') ? true : false, paid_amount = (status === 'paid') ? total_purchase_cost : 0">
+                            <option disabled value="">Payment Status</option>
                             @foreach(['paid', 'partial', 'due'] as $option)
-                            <option value="{{ $option }}">{{
-                                ucfirst($option) }}</option>
+                            <option value="{{ $option }}">{{ ucfirst($option) }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Paid Amount <small class="text-info">[Taka]</small></label>
-                        <input type="number" class="form-control" id="name" name="total_purchase_cost"
-                            placeholder="Total Purchase Cost" x-bind:disabled="paid">
+                        <input type="number" class="form-control" id="name" placeholder="Paid Amount"
+                            x-bind:disabled="paid" x-model.number="paid_amount">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Due Amount <small class="text-info">[Taka]</small></label>
-                        <input type="number" class="form-control" id="name" name="total_purchase_cost"
-                            placeholder="Total Purchase Cost">
+                        <input type="number" class="form-control" id="due_amount" name="due_amount"
+                            placeholder="Due Amount" x-bind:disabled="paid" x-model.number="due_amount">
                     </div>
                 </div>
             </div>
         </div>
 </form>
-<p>Payment Status: <span x-text="paid"></span></p>
+<p>Payment Status: <span x-text="paid_amount"></span></p>
 </div>
 @endsection
 
@@ -145,12 +140,14 @@
 <script>
     $(document).ready(function() {
         $('#products').select2({
-            placeholder: "Select categories.",
+            placeholder: "Select a product.",
         });
 
         $('#supplier').select2({
-        placeholder: "Select categories.",
+        placeholder: "Select a supplier.",
         });
     });
 </script>
-@endpush
+
+<script>
+    @endpush

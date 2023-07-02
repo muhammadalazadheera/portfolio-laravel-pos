@@ -67,8 +67,8 @@
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-users"></i></span><span class="pcoded-mtext">Customers</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="bc_alert.html">Customers</a></li>
-                        <li><a href="bc_alert.html">Add customer</a></li>
+                        <li><a href="{{ route('customers.index') }}">Customers</a></li>
+                        <li><a href="{{ route('customers.create') }}">Add customer</a></li>
                     </ul>
                 </li>
 
@@ -82,15 +82,6 @@
                     </ul>
                 </li>
 
-                <li class="nav-item pcoded-hasmenu">
-                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-user-check"></i></span><span class="pcoded-mtext">Stuffs</span></a>
-                    <ul class="pcoded-submenu">
-                        <li><a href="bc_alert.html">Customers</a></li>
-                        <li><a href="bc_alert.html">Add customer</a></li>
-                    </ul>
-                </li>
-
                 <li class="nav-item pcoded-menu-caption">
                     <label>Expenses</label>
                 </li>
@@ -98,7 +89,7 @@
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-file-text"></i></span><span class="pcoded-mtext">Expenses</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="bc_alert.html">Add Expens</a></li>
+                        <li><a href="bc_alert.html">Add Expense</a></li>
                     </ul>
                 </li>
 

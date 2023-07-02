@@ -1,12 +1,12 @@
 @extends('layouts.layout')
 
-@section('title', 'Create A New Brand')
+@section('title', 'Add a new customer')
 
 @push('css')
 @endpush
 
 @section('main')
-<form method="POST" action="{{ route('suppliers.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('customers.store') }}">
     @csrf
     <div class="row">
         <div class="col-8">
@@ -21,7 +21,7 @@
                 </div>
                 @endif
                 <div class="card-header">
-                    <h5>Add a new supplier</h5>
+                    <h5>Add a new customer</h5>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
@@ -43,7 +43,7 @@
                         <label for="exampleInputEmail1">Address</label>
                         <textarea name="address" id="" cols="30" rows="3" class="form-control"></textarea>
                     </div>
-                    <button type="submit" class="btn  btn-primary">Add Supplier</button>
+                    <button type="submit" class="btn  btn-primary">Add Customer</button>
                 </div>
             </div>
         </div>
