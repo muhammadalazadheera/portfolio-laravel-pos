@@ -129,7 +129,6 @@
             </div>
         </div>
 </form>
-<p>Payment Status: <span x-text="paid_amount"></span></p>
 </div>
 @endsection
 

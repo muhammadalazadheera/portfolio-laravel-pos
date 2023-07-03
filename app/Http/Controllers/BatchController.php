@@ -106,11 +106,13 @@ class BatchController extends Controller
             } elseif ($batch->status == 'due' && $request->status == 'paid') {
                 $batch->status = 'partial';
             }
+
+            $batch->quantity = $batch->quantity + $request->quantity;
+            $batch->total_purchase_cost = $batch->total_purchase_cost + $request->total_purchase_cost;
+            $batch->due_amount = $request->due_amount + $batch->due_amount;
         }
 
-        $batch->quantity = $batch->quantity + $request->quantity;
-        $batch->total_purchase_cost = $batch->total_purchase_cost + $request->total_purchase_cost;
-        $batch->due_amount = $request->due_amount;
+
         $batch->update();
         return redirect()->route('batches.index');
     }

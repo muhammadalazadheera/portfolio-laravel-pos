@@ -17,8 +17,8 @@
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Invoices</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="layout-vertical.html" target="_blank">Invoices</a></li>
-                        <li><a href="layout-horizontal.html" target="_blank">Create New Invoice</a></li>
+                        <li><a href="{{ route('invoices.index') }}">Invoices</a></li>
+                        <li><a href="{{ route('invoices.create') }}">Create New Invoice</a></li>
                     </ul>
                 </li>
                 <li class="nav-item pcoded-menu-caption">

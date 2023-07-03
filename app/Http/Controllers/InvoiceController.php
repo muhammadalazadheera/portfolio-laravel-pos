@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Batch;
+use App\Models\Customer;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 
@@ -20,7 +22,11 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        $batches = Batch::all();
+
+        //die();
+        return view('invoices.create', compact('batches', 'customers'));
     }
 
     /**
@@ -28,7 +34,11 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $productsData = $request->input('products');
+        $invoice = new Invoice();
+        $invoice->data = $productsData;
+        $invoice->save();
+        return response()->json(['message' => 'Invoice created successfully']);
     }
 
     /**
@@ -36,7 +46,9 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
-        //
+        foreach ($invoice->data as $data) {
+            echo $data['name'];
+        }
     }
 
     /**
