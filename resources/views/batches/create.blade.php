@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title','Add a new product')
+@section('title','Add a new batch')
 
 @push('css')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -27,7 +27,7 @@
 
 
 @section('main')
-<form method="POST" action="{{ route('batches.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('batches.store') }}">
     @csrf
     <div class="row"
         x-effect="total_purchase_cost = quantity * purchase_price, due_amount = total_purchase_cost - paid_amount, paid_amount = total_purchase_cost - due_amount"

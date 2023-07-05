@@ -31,6 +31,10 @@
         padding: 4px;
     }
 
+    .invoice-table th {
+        padding-left: 10px;
+    }
+
     .invoice-input {
         padding-left: 7px;
         margin: 7px 0 7px 7px;
@@ -53,14 +57,21 @@
 
 
 @section('main')
-<form method="POST" action="">
+<form method="POST" action="" x-effect="calculateTotal()" x-data="{
+    quantity: null,
+    price: null,
+    subTotal:null,
+    calculateTotal: function(i) { 
+       if(i){
+        let price = this.$refs['price-' + i].value;
+        let quantity = this.$refs['quantity-' + i].value;
+        let subTotalAmount = quantity * price;
+        this.$refs['subTotal-' + i].value = subTotalAmount;
+       }
+    },
+}">
     @csrf
-    <div class="row" x-effect="" x-data="{
-        product:'',
-        addForm(){
-            alert('Heera');
-        }
-    }">
+    <div class="row">
         <div class="col-4">
             <div class="card">
                 <div class="card-header">
@@ -72,7 +83,7 @@
                         <select class="form-control js-example-basic-single" name="product_id" id="products">
                             <option></option>
                             @foreach ($batches as $product)
-                            <option pid="{{ $product->product->id}}" value="{{ $product->product->name}}">{{
+                            <option product_price="{{ $product->sell_price}}" value="{{ $product->product->name}}">{{
                                 $product->product->name }}</option>
                             @endforeach
                         </select>
@@ -157,7 +168,12 @@
                 </div>
                 <div class="card-body">
                     <table class="invoice-table" id="invoiceTable">
-
+                        <tr>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Sell Price</th>
+                            <th>Sub Total</th>
+                        </tr>
                     </table>
                     <button id="createInvoiceBtn" style="display: none;" type="submit"
                         class="btn  btn-primary btn-sm show btn-block">Create
@@ -165,31 +181,30 @@
                 </div>
             </div>
         </div>
+    </div>
 </form>
-</div>
 @endsection
 
 @push('scripts')
-<script src="./script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
     function checkRow () {
-    let rowCount = $('#invoiceTable').find('tr').length
-    if(rowCount == 0){
-        $('#createInvoiceBtn').hide();
-    }else{
-        $('#createInvoiceBtn').show();
+        let rowCount = $('#invoiceTable').find('tr').length
+        if(rowCount <= 1){
+            $('#createInvoiceBtn').hide();
+            $('#products').val(null);
+        }else{
+            $('#createInvoiceBtn').show();
+        }
     }
-    console.log(rowCount);
-}
+
+    
 
     function removeRow (i) {
         $('#row-'+i).remove();
         checkRow();
-    }
-
-    
+    }  
 
     $(document).ready(function() {
         let i = 0;
@@ -197,23 +212,21 @@
             placeholder: "Please select a product",
             containerCssClass: "form-control-sm",
         }).on('change', function(event){
-            let id = $('#products option:selected').attr('pid')
-            alert(id)
+            
+            let product_price = $('#products option:selected').attr('product_price');
             let name = $('#products').val();
             i += 1;
-
             
-
-            $('#invoiceTable').append(`<tr id="row-${i}" class="border-bottom border-dark">
-                <td><input class="invoice-input" type="text" name="products[${i}][name]" value="${name}"></td>
+            $('#invoiceTable').append(`<tr id="row-${i}" class="border-bottom border-dark single-product">
+                <td><input class="invoice-input" type="text" name="products[${i}][name]" value="${name}" readonly></td>
                 <td>
-                    <input class="invoice-input" type="number" name="products[${i}][quantity]" placeholder="Quantity">
+                    <input x-ref="quantity-${i}" class="invoice-input quantity" type="number" name="products[${i}][quantity]" placeholder="Quantity" x-on:input="calculateTotal(${i})">
                 </td>
                 <td>
-                    <input class="invoice-input" type="number" name="products[${i}][price]" value="{{ App\Models\Batch::find(1)->sell_price }}">
+                    <input x-ref="price-${i}" class="invoice-input price" type="number" name="products[${i}][price]" value="${product_price}" x-on:input="calculateTotal(${i})">
                 </td>
                 <td>
-                    <input class="invoice-input" type="number" name="products[${i}][total]" placeholder="Sub Total">
+                    <input x-ref="subTotal-${i}" class="invoice-input sub_total" type="number" name="products[${i}][total]" placeholder="Sub Total">
                 </td>
                 <td>
                     <button onclick="removeRow(${i})" type="button" class="close invoice-close" aria-label="Close">
@@ -222,19 +235,22 @@
                 </td>
             </tr>`);
             
-
             checkRow();
+            
+        });
 
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('#customers').select2({
+        placeholder: "Select a customer",
         });
         
-        $('#customers').select2({
-            placeholder: "Select a customer",
-        });
-
         $('#status').select2({
-            placeholder: "Payment Status",
+        placeholder: "Payment Status",
         });
-
     });
 </script>
 @endpush
