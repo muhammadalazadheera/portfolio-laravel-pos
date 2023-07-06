@@ -34,6 +34,10 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+
+        return $request;
+        die();
+
         $productsData = $request->input('products');
         $invoice = new Invoice();
         $invoice->data = $productsData;
