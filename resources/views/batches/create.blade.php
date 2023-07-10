@@ -123,7 +123,7 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Due Amount <small class="text-info">[Taka]</small></label>
                         <input type="number" class="form-control" id="due_amount" name="due_amount"
-                            placeholder="Due Amount" x-bind:disabled="paid" x-model.number="due_amount">
+                            placeholder="Due Amount" x-bind:readonly="paid" x-model.number="due_amount" required>
                     </div>
                 </div>
             </div>

@@ -34,15 +34,32 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            "customer_id" => "required",
+            "total" => "required",
+            "due_amount" => "required",
+            "products" => "required",
+            "status" => "required",
+        ]);
 
-        return $request;
-        die();
+        $profit = 0;
+        $products = $request['products'];
+        foreach ($products as $key => $product) {
+            $batch = Batch::find($product['batch_id']);
+            $batch->rem_quantity -= $product['quantity'];
+            $batch->update();
+            $profit += $product['total'] - ($batch->purchase_price * $product['quantity']);
+        };
 
-        $productsData = $request->input('products');
         $invoice = new Invoice();
-        $invoice->data = $productsData;
+        $invoice->customer_id = $request->customer_id;
+        $invoice->products = json_encode($request->products);
+        $invoice->total = $request->total;
+        $invoice->due = $request->due_amount;
+        $invoice->status = $request->status;
+        $invoice->profit = $profit;
         $invoice->save();
-        return response()->json(['message' => 'Invoice created successfully']);
+        return response()->json(['message' => 'Invoice created successfully'], 201);
     }
 
     /**

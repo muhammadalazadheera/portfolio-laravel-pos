@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('total');
             $table->integer('due');
             $table->string('status');
+            $table->string('profit');
             $table->timestamps();
         });
     }

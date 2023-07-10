@@ -51,6 +51,7 @@ class BatchController extends Controller
         $batch->batch_no = 'batch-' . Str::random(5) . '-' . Carbon::now()->format('D-M-Y');
         $batch->product_id = $request->product_id;
         $batch->quantity = $request->quantity;
+        $batch->rem_quantity = $request->quantity;
         $batch->purchase_price = $request->purchase_price;
         $batch->sell_price = $request->sell_price;
         $batch->supplier_id = $request->supplier_id;

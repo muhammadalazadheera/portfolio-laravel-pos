@@ -57,14 +57,8 @@
 
 
 @section('main')
-<form method="POST" action="{{ route('invoices.store') }}"
-    x-effect="calculateTotal(), calculateSubTotal(), $refs.paid.value = $refs.total.value - $refs.due.value, $refs.due.value = $refs.total.value - $refs.paid.value"
-    x-data="{
-    total: 0,
-    status: '',
-    paid: false,
-    paid_amount: 0,
-    due_amount: 0,
+<form method="POST" action="{{ route('invoices.store') }}" x-effect="calculateTotal()" x-data="
+{
     removeRow: function(i){
         this.$refs['row-' + i].remove();
         let rowCount = this.$refs.invoiceTable.rows.length;
@@ -78,6 +72,25 @@
         this.calculateTotal();
     },
 
+    setStatus: function(){
+       let total_amount = $('#total').val();
+       let paid_amount = $('#paid').val();
+       let due_amount = $('#due_amount').val();
+
+       if(total_amount){
+        if(due_amount == total_amount){
+            $('#status').val('due');
+            $('#status').trigger('change');
+        }else if(due_amount == 0){
+            $('#status').val('paid');
+            $('#status').trigger('change');
+        }else{
+            $('#status').val('partial');
+            $('#status').trigger('change');
+        }
+       }
+    },
+
     calculateTotal: function(refs) {
         let total = 0;
         let inputFields = document.querySelectorAll('input[id^=\'subTotal-\']');
@@ -85,7 +98,10 @@
             total += parseFloat(input.value);
         });
         this.$refs.total.value = total;
-        this.$refs.due.value = this.$refs.total.value - this.$refs.paid.value;
+        this.$refs.paid.value = null;
+        this.$refs.due.value = this.$refs.total.value;
+
+        this.setStatus();
     },
 
     calculateSubTotal: function(i) {
@@ -97,7 +113,8 @@
         }
         this.calculateTotal();
     },
-}">
+}
+">
     @csrf
     <div class="row">
         <div class="col-4">
@@ -108,11 +125,11 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="products">Select Product(s)</label>
-                        <select class="form-control js-example-basic-single" name="product_id" id="products"
-                            x-ref="product">
+                        <select class="form-control js-example-basic-single" id="products" x-ref="product">
                             <option></option>
                             @foreach ($batches as $product)
-                            <option product_price="{{ $product->sell_price}}" value="{{ $product->product->name}}">{{
+                            <option product_name="{{ $product->product->name}}"
+                                product_price="{{ $product->sell_price}}" value="{{ $product->id}}">{{
                                 $product->product->name }} - <span>Purchase Price: {{ $product->purchase_price
                                     }} tk/-</span></option>
                             @endforeach
@@ -137,19 +154,17 @@
                     <div class="form-group">
                         <label for="paid">Paid <small class="text-info">[Taka]</small></label>
                         <input type="number" class="form-control" id="paid" x-ref="paid" placeholder="Paid Amount"
-                            x-bind:disabled="paid" x-on:keyup="$refs.due.value = $refs.total.value - $refs.paid.value"
-                            x-on:change="$refs.due.value = $refs.total.value - $refs.paid.value">
+                            x-on:input="$refs.due.value = $refs.total.value - $refs.paid.value" x-on:blur="setStatus()">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Due<small class="text-info">[Taka]</small></label>
                         <input type="number" class="form-control" id="due_amount" x-ref="due" name="due_amount"
-                            placeholder="Due Amount" x-bind:disabled="paid"
-                            x-on:keyup="$refs.paid.value = $refs.total.value - $refs.due.value"
-                            x-on:change="$refs.paid.value = $refs.total.value - $refs.due.value">
+                            placeholder="Due Amount" x-on:input="$refs.paid.value = $refs.total.value - $refs.due.value"
+                            x-on:blur="setStatus()">
                     </div>
                     <div class="form-group">
                         <label for="status">Payment Status<small class="text-info">[Taka]</small></label>
-                        <select name="status" id="status" class="form-control">
+                        <select name="status" id="status" x-ref="status" class="form-control" readonly required>
                             <option></option>
                             <option value="paid">Paid</option>
                             <option value="partial">Partial</option>
@@ -197,6 +212,18 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
+    function calculateTotal(){
+        let total = 0;
+        let inputFields = document.querySelectorAll('input[id^=\'subTotal-\']');
+        inputFields.forEach(input => {
+            total += parseFloat(input.value);
+        });
+        $('#total').val(total);
+        $('#paid').val(null);
+        let due_amount = $('#due_amount').val();
+        due_amount = $('#total').val();
+    }
+
     function checkRow () {
         let rowCount = $('#invoiceTable').find('tr').length
         if(rowCount <= 1){
@@ -205,27 +232,46 @@
         }else{
             $('#createInvoiceBtn').show();
         }
+
+        if(rowCount == 2){
+            let firstProductPrice = $('#price-1').val()
+            $('#total').val(firstProductPrice);
+            $('#due_amount').val(firstProductPrice);
+            $('#status').val('due').change();
+        }
+
+        if(rowCount == 3){
+            let firstProductPrice = $('#price-1').val()
+            $('#total').val(firstProductPrice);
+            $('#due_amount').val(firstProductPrice);
+            $('#status').val('due').change();
+        }
     }
  
 
     $(document).ready(function() {
+        
         let i = 0;
         $('#products').select2({
             placeholder: "Please select a product",
             containerCssClass: "form-control-sm",
         }).on('change', function(event){
             
+            let product_name = $('#products option:selected').attr('product_name');
             let product_price = $('#products option:selected').attr('product_price');
-            let name = $('#products').val();
+            let batch_id = $('#products').val();
             i += 1;
+
+
             
             $('#invoiceTable').append(`<tr id="row-${i}" x-ref="row-${i}" class="border-bottom border-dark single-product">
-                <td><input class="invoice-input" type="text" name="products[${i}][name]" value="${name}" readonly></td>
+                <input type="hidden" name="products[${i}][batch_id]" value="${batch_id}">
+                <td><input class="invoice-input" type="text" name="products[${i}][name]" value="${product_name}" readonly></td>
                 <td>
                     <input x-ref="quantity-${i}" class="invoice-input quantity" type="number" name="products[${i}][quantity]" x-on:input="calculateSubTotal(${i})" min="1" value="1" required>
                 </td>
                 <td>
-                    <input x-ref="price-${i}" class="invoice-input price" type="number" name="products[${i}][price]" value="${product_price}" x-on:input="calculateSubTotal(${i})" required>
+                    <input id="price-${i}" x-ref="price-${i}" class="invoice-input price" type="number" name="products[${i}][price]" value="${product_price}" x-on:input="calculateSubTotal(${i})" required>
                 </td>
                 <td>
                     <input id="subTotal-${i}" x-ref="subTotal-${i}" class="invoice-input sub_total" type="number" name="products[${i}][total]" required value="${product_price}">
@@ -238,6 +284,8 @@
             </tr>`);
             
             checkRow();
+
+            calculateTotal();
             
         });
 

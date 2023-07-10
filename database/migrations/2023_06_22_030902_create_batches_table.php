@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('batch_no')->unique();
             $table->integer('product_id');
             $table->integer('quantity');
+            $table->integer('rem_quantity');
             $table->integer('purchase_price');
             $table->integer('sell_price');
             $table->integer('supplier_id');
