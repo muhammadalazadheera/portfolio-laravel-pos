@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Batch;
 use App\Models\Customer;
 use App\Models\Invoice;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -14,7 +15,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+        $invoices = Invoice::all();
+        return view('invoices.index', compact('invoices'));
     }
 
     /**
@@ -23,9 +25,8 @@ class InvoiceController extends Controller
     public function create()
     {
         $customers = Customer::all();
-        $batches = Batch::all();
+        $batches = Batch::where('rem_quantity', '>=', 1)->get();
 
-        //die();
         return view('invoices.create', compact('batches', 'customers'));
     }
 
@@ -34,6 +35,11 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+
+        $profit = 0;
+        $current_date = Carbon::today();
+        $invoice_count = Invoice::whereDate('created_at', $current_date)->count() + 1;
+
         $request->validate([
             "customer_id" => "required",
             "total" => "required",
@@ -42,7 +48,7 @@ class InvoiceController extends Controller
             "status" => "required",
         ]);
 
-        $profit = 0;
+
         $products = $request['products'];
         foreach ($products as $key => $product) {
             $batch = Batch::find($product['batch_id']);
@@ -52,6 +58,7 @@ class InvoiceController extends Controller
         };
 
         $invoice = new Invoice();
+        $invoice->invoice_no = Carbon::now()->format('dmY') . '-' . $invoice_count;
         $invoice->customer_id = $request->customer_id;
         $invoice->products = json_encode($request->products);
         $invoice->total = $request->total;
@@ -59,7 +66,7 @@ class InvoiceController extends Controller
         $invoice->status = $request->status;
         $invoice->profit = $profit;
         $invoice->save();
-        return response()->json(['message' => 'Invoice created successfully'], 201);
+        return redirect()->route('invoices.index');
     }
 
     /**
@@ -77,7 +84,7 @@ class InvoiceController extends Controller
      */
     public function edit(Invoice $invoice)
     {
-        //
+        return view('invoices.edit', compact('invoice'));
     }
 
     /**
@@ -85,7 +92,9 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, Invoice $invoice)
     {
-        //
+        $invoice->due = $request->due_amount;
+        $invoice->update();
+        return redirect()->route('invoices.index');
     }
 
     /**
@@ -93,6 +102,14 @@ class InvoiceController extends Controller
      */
     public function destroy(Invoice $invoice)
     {
-        //
+        $products = json_decode($invoice->products);
+        foreach ($products as $key => $product) {
+            $batch = Batch::find($product->batch_id);
+            $batch->rem_quantity += $product->quantity;
+            $batch->update();
+        };
+
+        $invoice->delete();
+        return redirect()->back();
     }
 }

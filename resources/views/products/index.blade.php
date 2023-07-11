@@ -35,7 +35,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Brand</th>
-                    <th>Categories</th>
+                    <th>Batch(Quanity)</th>
                     <th>Image</th>
                     <th>Action</th>
                 </tr>
@@ -46,8 +46,9 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->brand->name }}</td>
                     <td>
-                        @foreach ($product->categories as $category)
-                        <span class="badge badge-success">{{ $category->name }}</span>
+                        @foreach ($product->batches as $batch)
+                        <span class="badge badge-success">{{ $batch->batch_no }}</span>
+                        <span class="badge badge-info">{{ $batch->rem_quantity }}</span><br>
                         @endforeach
                     </td>
                     <td><img width="100" src="{{ asset('storage/products/'.$product->image) }}" alt=""></td>
@@ -70,7 +71,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Brand</th>
-                    <th>Categories</th>
+                    <th>Batch(Quanity)</th>
                     <th>Image</th>
                     <th>Action</th>
                 </tr>

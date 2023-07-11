@@ -16,8 +16,8 @@ class Batch extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function supplier(): HasOne
+    public function supplier(): BelongsTo
     {
-        return $this->hasOne(Supplier::class);
+        return $this->belongsTo(Supplier::class);
     }
 }
