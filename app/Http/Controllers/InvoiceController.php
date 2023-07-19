@@ -66,7 +66,7 @@ class InvoiceController extends Controller
         $invoice->status = $request->status;
         $invoice->profit = $profit;
         $invoice->save();
-        return redirect()->route('invoices.index');
+        return redirect()->route('invoices.show', $invoice);
     }
 
     /**
@@ -74,9 +74,8 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
-        foreach ($invoice->data as $data) {
-            echo $data['name'];
-        }
+        $products = json_decode($invoice->products);
+        return view('invoices.invoice', compact('invoice', 'products'));
     }
 
     /**

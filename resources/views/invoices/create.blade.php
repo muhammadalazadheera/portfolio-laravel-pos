@@ -137,7 +137,7 @@
                     </div>
                     <div class="form-group">
                         <label for="customers">Customer</label>
-                        <select class="form-control js-example-basic-single" name="customer_id" id="customers">
+                        <select class="form-control js-example-basic-single" name="customer_id" id="customers" required>
                             <option></option>
                             @foreach ($customers as $customer)
                             <option value="{{ $customer->id}}">{{ $customer->name }} - ({{ $customer->phone }})
