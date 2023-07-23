@@ -4,6 +4,7 @@ use App\Http\Controllers\BatchController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
@@ -25,9 +26,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth'], function () {
 
     // Route to Dashboard
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    Route::get('/', [DashboardController::class, 'index']);
 
     // Managing the products
     Route::resource('products', ProductController::class);

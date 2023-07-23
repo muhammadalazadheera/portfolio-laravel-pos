@@ -164,7 +164,7 @@
                     </div>
                     <div class="form-group">
                         <label for="status">Payment Status<small class="text-info">[Taka]</small></label>
-                        <select name="status" id="status" x-ref="status" class="form-control" readonly required>
+                        <select name="status" id="status" x-ref="status" class="form-control" required>
                             <option></option>
                             <option value="paid">Paid</option>
                             <option value="partial">Partial</option>
