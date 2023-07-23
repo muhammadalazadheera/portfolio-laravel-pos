@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
-use App\Models\Supplier;
+use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,4 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('customers', CustomerController::class);
     // Managing Invoices
     Route::resource('invoices', InvoiceController::class);
+    // Managing Expenses Categories
+    Route::resource('expenses', ExpenseController::class);
+    // Managing Expenses Categories
+    Route::resource('types', TypeController::class);
 });

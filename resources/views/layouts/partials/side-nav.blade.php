@@ -89,7 +89,9 @@
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-file-text"></i></span><span class="pcoded-mtext">Expenses</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="bc_alert.html">Add Expense</a></li>
+                        <li><a href="{{ route('expenses.index') }}">All Expense</a></li>
+                        <li><a href="{{ route('expenses.create') }}">Add Expense</a></li>
+                        <li><a href="{{ route('types.index') }}">Expense Types</a></li>
                     </ul>
                 </li>
 
