@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expense;
-use App\Models\ExpenseCategory;
 use App\Models\Type;
 use Illuminate\Http\Request;
 

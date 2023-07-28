@@ -32,6 +32,7 @@
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Invoice No</th>
                     <th>Customer</th>
                     <th>Total</th>
                     <th>Status</th>
@@ -44,6 +45,7 @@
             <tbody>
                 @foreach($invoices as $key => $invoice)
                 <tr class="table-info">
+                    <td>{{ $key + 1}}</td>
                     <td>{{ $invoice->invoice_no }}</td>
                     <td>{{ $invoice->customer->name }}</td>
                     <td>{{ $invoice->total }}</td>
@@ -71,6 +73,7 @@
             <tfoot>
                 <tr>
                     <th>#</th>
+                    <th>Invoice No</th>
                     <th>Customer</th>
                     <th>Total</th>
                     <th>Status</th>
