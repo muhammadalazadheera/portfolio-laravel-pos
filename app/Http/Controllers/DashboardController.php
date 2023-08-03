@@ -13,8 +13,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-
         $report = new Report();
+        $currentDateInvoices = Invoice::whereDate('created_at', Carbon::now())->take(5)->get();
 
         // Counting products in stock
         $productsCount = $report->productInStock();
@@ -27,12 +27,45 @@ class DashboardController extends Controller
         $maxProduct = $dailyTopSell['maxProduct'];
         $maxQuantity = $dailyTopSell['maxQuantity'];
 
-
-
         // Sold product count
         $soldProducts = $report->dailyTotalSell();
 
+        // Total order
+        $totalOrder = $report->dailyOrder();
 
-        return view('welcome', compact('productsCount', 'soldProducts', 'outOfStockProducts', 'maxProduct', 'maxQuantity'));
+        // Daily Sell Amount
+        $dailySellAmount = $report->dailySellAmount();
+
+        // Daily Due Amount
+        $dailyDueAmount = $report->dailyDueAmount();
+
+        // Daily Due Amount
+        $dailyPaidAmount = (int) $dailySellAmount - (int) $dailyDueAmount;
+
+        // Today's profit
+        $profit = $report->dailyProfit();
+
+        // Profit of current week
+        $weeklyProfit = $report->currentWeekProfit();
+
+        // Profit of current week
+        $monthlyProfit = $report->currentMonthProfit();
+
+
+        return view('welcome', compact(
+            'productsCount',
+            'soldProducts',
+            'outOfStockProducts',
+            'maxProduct',
+            'maxQuantity',
+            'totalOrder',
+            'dailySellAmount',
+            'dailyDueAmount',
+            'dailyPaidAmount',
+            'profit',
+            'weeklyProfit',
+            'monthlyProfit',
+            'currentDateInvoices'
+        ));
     }
 }

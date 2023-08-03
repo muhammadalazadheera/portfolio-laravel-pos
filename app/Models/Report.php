@@ -10,6 +10,7 @@ class Report extends Model
 {
     use HasFactory;
 
+    //----------------------------------------------------- Counting the total products available in stock
     public function productInStock()
     {
         $productsCount = 0;
@@ -20,10 +21,14 @@ class Report extends Model
         return $productsCount;
     }
 
+    //----------------------------------------------------- Counting the out of stock products
+
     public function outOfStockProducts()
     {
         return Batch::where('rem_quantity', '==', 0)->count();
     }
+
+    //----------------------------------------------------- Counting the total sold product (in the current date)
 
     public function dailyTotalSell()
     {
@@ -36,6 +41,8 @@ class Report extends Model
         }
         return $soldProducts;
     }
+
+    //----------------------------------------------------- Counting the top sold product
 
     public function dailyTopSellProduct()
     {
@@ -66,5 +73,78 @@ class Report extends Model
         }
 
         return array('maxProduct' => $maxProduct, 'maxQuantity' => $maxQuantity);
+    }
+
+    //----------------------------------------------------- Counting the total number of order(in the current date)
+
+    public function dailyOrder()
+    {
+        return Invoice::whereDate('created_at', Carbon::now())->count();
+    }
+
+    //----------------------------------------------------- Counting the total of sell amount
+
+    public function dailySellAmount()
+    {
+        $invoices = Invoice::whereDate('created_at', Carbon::now())->get();
+        $totalSellAmount = null;
+        foreach ($invoices as $invoice) {
+            $totalSellAmount += $invoice->total;
+        }
+        return $totalSellAmount;
+    }
+
+    //----------------------------------------------------- Counting the total of sell amount
+
+    public function dailyDueAmount()
+    {
+        $invoices = Invoice::whereDate('created_at', Carbon::now())->get();
+        $totalDueAmount = null;
+        foreach ($invoices as $invoice) {
+            $totalDueAmount += $invoice->due;
+        }
+        return $totalDueAmount;
+    }
+
+    //----------------------------------------------------- Counting the total of profit
+
+    public function dailyProfit()
+    {
+        $profit = null;
+        $invoices = Invoice::whereDate('created_at', Carbon::now())->get();
+        foreach ($invoices as $invoice) {
+            $profit += $invoice->profit;
+        }
+        return $profit;
+    }
+
+    public function currentWeekProfit()
+    {
+        $profit = null;
+        $startDate = Carbon::now()->startOfWeek();
+        $endDate = Carbon::now()->endOfWeek();
+
+        $invoices = Invoice::whereBetween('created_at', [$startDate, $endDate])->get();
+
+        foreach ($invoices as $invoice) {
+            $profit += $invoice->profit;
+        }
+
+        return $profit;
+    }
+
+    public function currentMonthProfit()
+    {
+        $profit = null;
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+
+        $invoices = Invoice::whereBetween('created_at', [$startDate, $endDate])->get();
+
+        foreach ($invoices as $invoice) {
+            $profit += $invoice->profit;
+        }
+
+        return $profit;
     }
 }
