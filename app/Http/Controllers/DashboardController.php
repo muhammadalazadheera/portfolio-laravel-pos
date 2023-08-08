@@ -16,56 +16,19 @@ class DashboardController extends Controller
         $report = new Report();
         $currentDateInvoices = Invoice::whereDate('created_at', Carbon::now())->take(5)->get();
 
-        // Counting products in stock
-        $productsCount = $report->productInStock();
 
-        // Counting products out of stock
-        $outOfStockProducts = $report->outOfStockProducts();
 
-        // Top sold product
-        $dailyTopSell = $report->dailyTopSellProduct();
-        $maxProduct = $dailyTopSell['maxProduct'];
-        $maxQuantity = $dailyTopSell['maxQuantity'];
 
-        // Sold product count
-        $soldProducts = $report->dailyTotalSell();
-
-        // Total order
-        $totalOrder = $report->dailyOrder();
-
-        // Daily Sell Amount
-        $dailySellAmount = $report->dailySellAmount();
-
-        // Daily Due Amount
-        $dailyDueAmount = $report->dailyDueAmount();
-
-        // Daily Due Amount
-        $dailyPaidAmount = (int) $dailySellAmount - (int) $dailyDueAmount;
-
-        // Today's profit
-        $profit = $report->dailyProfit();
+        // Today's all report
+        $dailyReport = $report->getReport('daily', null, null);
 
         // Profit of current week
-        $weeklyProfit = $report->currentWeekProfit();
+        $weeklyProfit = $report->getReport('weekly', null, null);
 
         // Profit of current week
-        $monthlyProfit = $report->currentMonthProfit();
+        $monthlyProfit = $report->getReport('monthly', null, null);
 
 
-        return view('welcome', compact(
-            'productsCount',
-            'soldProducts',
-            'outOfStockProducts',
-            'maxProduct',
-            'maxQuantity',
-            'totalOrder',
-            'dailySellAmount',
-            'dailyDueAmount',
-            'dailyPaidAmount',
-            'profit',
-            'weeklyProfit',
-            'monthlyProfit',
-            'currentDateInvoices'
-        ));
+        return view('welcome', compact('dailyReport', 'weeklyProfit', 'monthlyProfit', 'currentDateInvoices'));
     }
 }

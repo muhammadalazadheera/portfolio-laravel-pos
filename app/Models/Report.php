@@ -10,49 +10,67 @@ class Report extends Model
 {
     use HasFactory;
 
-    //----------------------------------------------------- Counting the total products available in stock
-    public function productInStock()
+
+    public function getReport($range,  $to, $from)
     {
+
+        $startDate = null;
+        $endDate = null;
+
+        switch ($range) {
+            case 'daily':
+                $startDate = Carbon::now()->startOfDay();
+                $endDate = Carbon::now()->endOfDay();
+                break;
+            case 'weekly':
+                $startDate = Carbon::now()->startOfWeek();
+                $endDate = Carbon::now()->endOfWeek();
+                break;
+            case 'monthly':
+                $startDate = Carbon::now()->startOfMonth();
+                $endDate = Carbon::now()->endOfMonth();
+                break;
+            case 'yearly':
+                $startDate = Carbon::now()->startOfYear();
+                $endDate = Carbon::now()->endOfYear();
+                break;
+            case 'custom':
+                $startDate = $to;
+                $endDate = $from;
+                break;
+            default:
+                // Invalid range, handle the error or set default behavior here.
+                return null;
+        }
+
+        // 1 ----------------------------------------------------- Counting the total products available in stock
         $productsCount = 0;
         $batches = Batch::all();
         foreach ($batches as $batch) {
             $productsCount += $batch->rem_quantity;
         }
-        return $productsCount;
-    }
 
-    //----------------------------------------------------- Counting the out of stock products
+        // 2 ----------------------------------------------------- Counting the out of stock products
+        $outOfStockProducts = Batch::where('rem_quantity', '==', 0)->count();
 
-    public function outOfStockProducts()
-    {
-        return Batch::where('rem_quantity', '==', 0)->count();
-    }
-
-    //----------------------------------------------------- Counting the total sold product (in the current date)
-
-    public function dailyTotalSell()
-    {
+        // 3 ----------------------------------------------------- Counting the total sold product (in the current date)
         $soldProducts = 0;
-        $invoices = Invoice::whereDate('created_at', Carbon::today())->get();
+        $invoices = Invoice::whereBetween('created_at', [$startDate, $endDate])->get();
         foreach ($invoices as $invoice) {
             foreach (json_decode($invoice->products) as $p) {
                 $soldProducts += $p->quantity;
             }
         }
-        return $soldProducts;
-    }
 
-    //----------------------------------------------------- Counting the top sold product
+        // 4 ----------------------------------------------------- Counting the top sold product
 
-    public function dailyTopSellProduct()
-    {
         // Decode JSON data into a PHP array
-        $invoices = json_decode(Invoice::whereDate('created_at', Carbon::now())->get(), true);
+        $invoices = json_decode(Invoice::whereBetween('created_at', [$startDate, $endDate])->get(), true);
 
         // Initialize an empty array to store the total quantity of each product
         $productQuantity = [];
 
-        foreach (Invoice::whereDate('created_at', Carbon::now())->get() as $invoice) {
+        foreach (Invoice::whereBetween('created_at', [$startDate, $endDate])->get() as $invoice) {
             $products = json_decode($invoice['products'], true);
             foreach ($products as $product) {
                 $productName = $product['name'];
@@ -72,79 +90,64 @@ class Report extends Model
             }
         }
 
-        return array('maxProduct' => $maxProduct, 'maxQuantity' => $maxQuantity);
-    }
+        $topSoldProduct = array('maxProduct' => $maxProduct, 'maxQuantity' => $maxQuantity);
 
-    //----------------------------------------------------- Counting the total number of order(in the current date)
+        // 5 ----------------------------------------------------- Counting the total number of order(in the current date)
+        $totalOrder = Invoice::whereBetween('created_at', [$startDate, $endDate])->count();
 
-    public function dailyOrder()
-    {
-        return Invoice::whereDate('created_at', Carbon::now())->count();
-    }
-
-    //----------------------------------------------------- Counting the total of sell amount
-
-    public function dailySellAmount()
-    {
-        $invoices = Invoice::whereDate('created_at', Carbon::now())->get();
+        //----------------------------------------------------- Counting the total of sell amount
+        $invoices = Invoice::whereBetween('created_at', [$startDate, $endDate])->get();
         $totalSellAmount = null;
         foreach ($invoices as $invoice) {
             $totalSellAmount += $invoice->total;
         }
-        return $totalSellAmount;
-    }
 
-    //----------------------------------------------------- Counting the total of sell amount
-
-    public function dailyDueAmount()
-    {
-        $invoices = Invoice::whereDate('created_at', Carbon::now())->get();
+        // 6 ----------------------------------------------------- Counting the total of sell amount
+        $invoices = Invoice::whereBetween('created_at', [$startDate, $endDate])->get();
         $totalDueAmount = null;
         foreach ($invoices as $invoice) {
             $totalDueAmount += $invoice->due;
         }
-        return $totalDueAmount;
-    }
 
-    //----------------------------------------------------- Counting the total of profit
-
-    public function dailyProfit()
-    {
+        // 7 ----------------------------------------------------- Counting the total of profit
         $profit = null;
-        $invoices = Invoice::whereDate('created_at', Carbon::now())->get();
-        foreach ($invoices as $invoice) {
-            $profit += $invoice->profit;
-        }
-        return $profit;
-    }
-
-    public function currentWeekProfit()
-    {
-        $profit = null;
-        $startDate = Carbon::now()->startOfWeek();
-        $endDate = Carbon::now()->endOfWeek();
-
         $invoices = Invoice::whereBetween('created_at', [$startDate, $endDate])->get();
-
         foreach ($invoices as $invoice) {
             $profit += $invoice->profit;
         }
 
-        return $profit;
-    }
 
-    public function currentMonthProfit()
-    {
-        $profit = null;
-        $startDate = Carbon::now()->startOfMonth();
-        $endDate = Carbon::now()->endOfMonth();
+        // 8 ----------------------------------------------------- Counting the total expense
 
-        $invoices = Invoice::whereBetween('created_at', [$startDate, $endDate])->get();
-
-        foreach ($invoices as $invoice) {
-            $profit += $invoice->profit;
+        $expenses = Expense::whereBetween('created_at', [$startDate, $endDate])->get();
+        $totalExpense = null;
+        foreach ($expenses as $key => $expense) {
+            $totalExpense += $expense->amount;
         }
 
-        return $profit;
+        // 9 ----------------------------------------------------- Top Expese Type
+
+        $topExpenseCategory = null;
+        $topCategoryId = Expense::whereBetween('created_at', [$startDate, $endDate])
+            ->groupBy('type_id')
+            ->selectRaw('type_id, COUNT(*) as total_expenses')
+            ->orderByDesc('total_expenses')
+            ->value('type_id');
+
+        if ($topCategoryId != null) {
+            $topExpenseCategory = Type::find((int) $topCategoryId)->name;
+        }
+        return [
+            'productsCount' => $productsCount,
+            'outOfStockProducts' => $outOfStockProducts,
+            'soldProducts' => $soldProducts,
+            'topSoldProduct' => $topSoldProduct,
+            'totalOrder' => $totalOrder,
+            'profit' => $profit,
+            'totalDueAmount' => $totalDueAmount,
+            'totalSellAmount' => $totalSellAmount,
+            'totalExpense' => $totalExpense,
+            'topExpenseCategory' => $topExpenseCategory
+        ];
     }
 }

@@ -102,11 +102,11 @@
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i
                                 class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Reports</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="bc_alert.html">Daily Report</a></li>
-                        <li><a href="bc_alert.html">Weekly Report</a></li>
-                        <li><a href="bc_alert.html">Monthly Report</a></li>
-                        <li><a href="bc_alert.html">Yearly Report</a></li>
-                        <li><a href="bc_alert.html">Custom Report</a></li>
+                        <li><a href="{{ url('reports?range=daily') }}">Daily Report</a></li>
+                        <li><a href="{{ url('reports?range=weekly') }}">Weekly Report</a></li>
+                        <li><a href="{{ url('reports?range=monthly') }}">Monthly Report</a></li>
+                        <li><a href="{{ url('reports?range=yearly') }}">Yearly Report</a></li>
+                        <li><a href="{{ url('reports?range=set_custom_range') }}">Custom Report</a></li>
                     </ul>
                 </li>
 

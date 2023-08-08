@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
@@ -46,4 +47,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('expenses', ExpenseController::class);
     // Managing Expenses Categories
     Route::resource('types', TypeController::class);
+    // Managing Reports
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports');
 });
