@@ -114,8 +114,9 @@
                     <label>Settings</label>
                 </li>
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link "><span class="pcoded-micon"><i
-                                class="feather icon-settings"></i></span><span class="pcoded-mtext">Settings</span></a>
+                    <a href="{{ route('setting.index') }}" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-settings"></i></span><span
+                            class="pcoded-mtext">Settings</span></a>
                 </li>
             </ul>
 

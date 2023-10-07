@@ -6,9 +6,9 @@
     <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 11]>
-    	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    	<![endif]-->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -42,7 +42,7 @@
             <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
             <a href="#!" class="b-brand">
                 <!-- ========   change your logo hear   ============ -->
-                <img src="{{ asset('images/logo.png') }}" alt="" class="logo">
+                <img src="{{ asset('storage/logo/' . $settings->logo) }}" alt="" class="logo">
                 <img src="{{ asset('images/logo-icon.png') }}" alt="" class="logo-thumb">
             </a>
             <a href="#!" class="mob-toggler">
@@ -153,11 +153,14 @@
                                 </form>
                             </div>
                             <ul class="pro-body">
-                                <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i>
+                                <li><a href="user-profile.html" class="dropdown-item"><i
+                                            class="feather icon-user"></i>
                                         Profile</a></li>
-                                <li><a href="email_inbox.html" class="dropdown-item"><i class="feather icon-mail"></i>
+                                <li><a href="email_inbox.html" class="dropdown-item"><i
+                                            class="feather icon-mail"></i>
                                         My Messages</a></li>
-                                <li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i>
+                                <li><a href="auth-signin.html" class="dropdown-item"><i
+                                            class="feather icon-lock"></i>
                                         Lock Screen</a></li>
                             </ul>
                         </div>
@@ -184,7 +187,8 @@
                                 <h5 class="m-b-10">Dashboard Analytics</h5>
                             </div>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a>
+                                <li class="breadcrumb-item"><a href="index.html"><i
+                                            class="feather icon-home"></i></a>
                                 </li>
                                 <li class="breadcrumb-item"><a href="#!">Dashboard Analytics</a></li>
                             </ul>
@@ -256,7 +260,7 @@
 
 
     <!-- custom-chart js -->
-    <script src="{{ asset('js/pages/dashboard-main.js')}}"></script>
+    <script src="{{ asset('js/pages/dashboard-main.js') }}"></script>
     @stack('scripts')
 </body>
 

@@ -48,7 +48,7 @@
             <div class="row">
                 <div class="col-6"> <strong>Pay To:</strong>
                     <address>
-                        Koice Inc<br />
+                        {{ $settings->shop_name }}<br />
                         2705 N. Enterprise St<br />
                         Orange, CA 92865<br />
                         contact@koiceinc.com
@@ -79,13 +79,13 @@
                             </thead>
                             <tbody>
                                 @foreach ($products as $key => $product)
-                                <tr>
-                                    <td class="col-3">{{ $key + 1 }}</td>
-                                    <td class="col-4 text-1">{{ $product->name }}</td>
-                                    <td class="col-2 text-center">{{ $product->quantity }}</td>
-                                    <td class="col-1 text-center">{{ $product->price }}/-</td>
-                                    <td class="col-2 text-end">{{ $product->total }}/-</td>
-                                </tr>
+                                    <tr>
+                                        <td class="col-3">{{ $key + 1 }}</td>
+                                        <td class="col-4 text-1">{{ $product->name }}</td>
+                                        <td class="col-2 text-center">{{ $product->quantity }}</td>
+                                        <td class="col-1 text-center">{{ $product->price }}/-</td>
+                                        <td class="col-2 text-end">{{ $product->total }}/-</td>
+                                    </tr>
                                 @endforeach
 
                             </tbody>
