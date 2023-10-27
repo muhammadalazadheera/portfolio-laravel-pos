@@ -1,4 +1,4 @@
-<video src='https://res.cloudinary.com/dqv4l1mkj/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif' width=180/>
+<video src="https://res.cloudinary.com/dqv4l1mkj/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif"/>
 <br />
 <p align="center">
     <img widht="85%" height="100%" src="https://res.cloudinary.com/dqv4l1mkj/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif">
