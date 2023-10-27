@@ -1,4 +1,5 @@
 <br />
+![Alt text](https://res.cloudinary.com/dqv4l1mkj/image/upload/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif)
 <p align="center">
     <img src="https://res.cloudinary.com/dqv4l1mkj/image/upload/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif">
 </p>
