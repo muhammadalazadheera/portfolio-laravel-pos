@@ -1,4 +1,5 @@
-<video src="https://res.cloudinary.com/dqv4l1mkj/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif"></video>
+
+![Untitled design](https://github.com/muhammadalazadheera/portfolio-laravel-pos/assets/76617817/2af97bfe-6327-446e-a3a1-2f5aedcfce9b)
 <br />
 <p align="center">
     <img widht="85%" height="100%" src="https://res.cloudinary.com/dqv4l1mkj/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif">
