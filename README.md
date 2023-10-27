@@ -83,8 +83,7 @@
 </p>
 
 <p align="center">
-    <img width="120" src="https://img.shields.io/badge/DATABASE-2ea44f?style=for-the-badge
-    ">
+    <img width="120" src="https://img.shields.io/badge/DATABASE-2ea44f?style=for-the-badge">
 </p>
 
 
