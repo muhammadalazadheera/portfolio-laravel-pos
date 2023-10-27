@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-    <img widht="60%" src="https://github.com/muhammadalazadheera/portfolio-laravel-pos/assets/76617817/2af97bfe-6327-446e-a3a1-2f5aedcfce9b">
+    <img widht="50%" src="https://github.com/muhammadalazadheera/portfolio-laravel-pos/assets/76617817/2af97bfe-6327-446e-a3a1-2f5aedcfce9b">
 </p>
 
 <h1 align="center">
