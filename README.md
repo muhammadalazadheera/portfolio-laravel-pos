@@ -1,4 +1,3 @@
-
 ![Untitled design](https://github.com/muhammadalazadheera/portfolio-laravel-pos/assets/76617817/2af97bfe-6327-446e-a3a1-2f5aedcfce9b)
 <br />
 <p align="center">
