@@ -1,9 +1,6 @@
 <br />
 <p align="center">
-    <img
-        src="https://res.cloudinary.com/dqv4l1mkj/image/upload/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif"
-        style="border: 1px solid white"
-        width="85%">
+    <img src="https://res.cloudinary.com/dqv4l1mkj/image/upload/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif" style="border: 1px solid white" width="85%">
 </p>
 
 <h1 align="center">
