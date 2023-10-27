@@ -1,7 +1,6 @@
 <br />
-![Alt text](https://res.cloudinary.com/dqv4l1mkj/image/upload/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif)
 <p align="center">
-    <img src="https://res.cloudinary.com/dqv4l1mkj/image/upload/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif">
+    <img widht="85%" height="100%" src="https://res.cloudinary.com/dqv4l1mkj/image/upload/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif">
 </p>
 
 <h1 align="center">
