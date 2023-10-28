@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('brand_id');
             $table->string('image');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

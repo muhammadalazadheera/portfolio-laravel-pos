@@ -1,3 +1,4 @@
+
 @extends('layouts.layout')
 
 @section('title','Brands')
@@ -48,7 +49,7 @@
                 <tr class="table-info">
                     <td>{{ $key + 1 }}</td>
                     <td><span class="badge badge-info">{{ $batch->batch_no }}</span></td>
-                    <td>{{ $batch->product->name }}</td>
+                    <td>{{ optional($batch->product)->name }} ({{ optional($batch->product)->trashed() ? 'Deleted' : '' }})</td>
                     <td>{{ $batch->quantity }}</td>
                     <td>{{ $batch->purchase_price }}</td>
                     <td>{{ $batch->sell_price }}</td>

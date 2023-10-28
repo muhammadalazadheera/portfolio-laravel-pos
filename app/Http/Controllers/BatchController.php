@@ -16,8 +16,11 @@ class BatchController extends Controller
      */
     public function index()
     {
-        $batches = Batch::all();
-        return view('batches.index', compact('batches'));
+        $batches = Batch::with(['product' => function ($query) {
+                        $query->withTrashed();
+                    }])->get();
+
+         return view('batches.index', compact('batches'));
     }
 
     /**

@@ -17,7 +17,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="Phoenixcoded" />
     <!-- Favicon icon -->
-    <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/fav.png') }}" type="image/x-icon">
     <!-- vendor css -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @stack('css')
@@ -40,7 +40,7 @@
 
         <div class="m-header">
             <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
-            <a href="#!" class="b-brand">
+            <a href="{{ url('/') }}" class="b-brand">
                 <!-- ========   change your logo hear   ============ -->
                 <img src="{{ asset('storage/logo/' . $settings->logo) }}" alt="" class="logo">
                 <img src="{{ asset('images/logo-icon.png') }}" alt="" class="logo-thumb">
@@ -62,12 +62,13 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li>
+                {{-- <li>
                     <div class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                             <i class="icon feather icon-bell"></i>
                             <span class="badge badge-pill badge-danger">5</span>
                         </a>
+                    
                         <div class="dropdown-menu dropdown-menu-right notification">
                             <div class="noti-head">
                                 <h6 class="d-inline-block m-b-0">Notifications</h6>
@@ -132,36 +133,26 @@
                                 <a href="#!">show all</a>
                             </div>
                         </div>
+                        
                     </div>
-                </li>
+                </li> --}}
                 <li>
                     <div class="dropdown drp-user">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="feather icon-user"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-notification">
-                            <div class="pro-head">
-                                <img class="img-radius" src="{{ asset('images/user/avatar-2.jpg') }}"
-                                    alt="User-Profile-Image">
-                                <span>John Doe</span>
-                                <form action="{{ route('logout') }}" method="POST" id="logOutForm">
-                                    @csrf
-                                    <a href="javascript:{}" onclick="document.getElementById('logOutForm').submit()"
-                                        class="dud-logout" title="Logout">
-                                        <i class="feather icon-log-out"></i>
-                                    </a>
-                                </form>
-                            </div>
                             <ul class="pro-body">
-                                <li><a href="user-profile.html" class="dropdown-item"><i
-                                            class="feather icon-user"></i>
-                                        Profile</a></li>
-                                <li><a href="email_inbox.html" class="dropdown-item"><i
-                                            class="feather icon-mail"></i>
-                                        My Messages</a></li>
-                                <li><a href="auth-signin.html" class="dropdown-item"><i
-                                            class="feather icon-lock"></i>
-                                        Lock Screen</a></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST" id="logOutForm">
+                                        @csrf
+                                    </form>
+                                    <a href="javascript:{}" 
+                                    onclick="document.getElementById('logOutForm').submit()"
+                                    class="dropdown-item" title="Logout">
+                                    <i class="feather icon-log-out"></i> Logout
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>

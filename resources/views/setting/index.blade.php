@@ -43,7 +43,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <input type="file" class="dropify form-control" id="image" name="logo"
-                                data-max-height="33" data-max-width="131"
+                                data-max-height="45" data-max-width="140"
                                 data-default-file="{{ asset('storage/logo/' . $settings->logo) }}">
                         </div>
                     </div>
