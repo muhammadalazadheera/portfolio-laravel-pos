@@ -1,66 +1,158 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
+<br />
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <img
+        src="https://res.cloudinary.com/dqv4l1mkj/image/upload/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif"
+        style="border: 1px solid white"
+        width="85%">
 </p>
 
-## About Laravel
+<h1 align="center">
+    <samp>Complete Point Of Sale (POS)</samp>
+</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="justify">
+    <samp>
+        This project covers all the basic but required functionalities for a
+        Point of sale system like:
+    </samp>
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<ul>
+    <li><samp>Creating Invoice</samp></li>
+    <li><samp>Product Management</samp></li>
+    <li><samp>Batch Management</samp></li>
+    <li><samp>Sale Report</samp></li>
+    <li><samp>Expense Management</samp></li>
+</ul>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<h2 align="center" style="text-decoration:underline">
+    <samp>Technologies Used To Create The Project</samp>
+</h2>
 
-## Learning Laravel
+<p align="center">
+    <img width="120" src="https://img.shields.io/badge/BACKEND-2ea44f?style=for-the-badge">
+</p>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<p align="left">
+    <a href="https://laravel.com/">
+        <img src="https://img.shields.io/badge/Laravel-FF2D20?logo=laravel&logoColor=fff&style=flat-square" alt="Laravel Badge">
+    </a>
+    <br />
+    <samp>Laravel is a web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.</samp>
+</p>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<p align="center">
+    <img width="120" src="https://img.shields.io/badge/Frontend-2ea44f?style=for-the-badge
+    ">
+</p>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+<p>
+    <a href="">
+        <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=fff&style=flat-square" alt="HTML5 Badge">
+    </a>
+    <br />
+    <samp>The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.</samp>
+</p>
 
-## Laravel Sponsors
+<p>
+    <a href="">
+        <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=fff&style=flat-square" alt="CSS3 Badge">
+    </a>
+    <br />
+    <samp>Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML or XML.</samp>
+</p>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+<p>
+    <a href="">
+        <img src="https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=fff&style=flat-square" alt="Bootstrap Badge">
+    </a>
+    <br />
+    <samp>Bootstrap is a free and open-source CSS framework directed at responsive, mobile-first front-end web development. </samp>
+</p>
 
-### Premium Partners
+<p>
+    <a href="">
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=flat-square" alt="JavaScript Badge">
+    </a>
+    <br />
+    <samp>JavaScript, often abbreviated as JS, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS.</samp>
+</p>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+<p>
+    <a href="">
+        <img src="https://img.shields.io/badge/jQuery-0769AD?logo=jquery&logoColor=fff&style=flat-square" alt="jQuery Badge">
+    </a>
+    <br />
+    <samp>jQuery is a JavaScript library designed to simplify HTML DOM tree traversal and manipulation, as well as event handling, CSS animation, and Ajax.</samp>
+</p>
 
-## Contributing
+<p align="center">
+    <img width="120" src="https://img.shields.io/badge/DATABASE-2ea44f?style=for-the-badge
+    ">
+</p>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<p>
+    <a href="">
+        <img src="https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=fff&style=flat-square" alt="MySQL Badge">
+    </a>
+    <br />
+    <samp>MySQL is an open-source relational database management system.</samp>
+</p>
 
-## Code of Conduct
+<p align="center">
+    <img width="120" src="https://img.shields.io/badge/OTHERS-2ea44f?style=for-the-badge
+    ">
+</p>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+<p>
+    <a href="">
+        <img src="https://img.shields.io/badge/Alpine.js-8BC0D0?logo=alpinedotjs&logoColor=fff&style=flat-square" alt="Alpine.js Badge">
+    </a>
+    <br />
+    <samp>Alpine is a rugged, minimal tool for composing behavior directly in your markup.</samp>
+</p>
 
-## Security Vulnerabilities
+<h2 align="center">
+    <samp style="text-decoration:underline">Installation Guideline</samp>
+</h2>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<p><samp>Clone the repository</samp></p>
 
-## License
+    git clone https://github.com/muhammadalazadheera/portfolio-laravel-pos.git
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<p><samp>Change the directory to portfolio-laravel-pos</samp></p>
+
+    cd portfolio-laravel-pos
+
+<p><samp>Install Composer</samp></p>
+
+    composer install
+
+<p><samp>Copy the .evn.examp file to .env (For Linux)</samp></p>
+
+    cp .env.example .env
+
+<p>Windows</p>
+
+    copy .env.example .env
+
+<p><samp>Create database and update .env file accordingly</samp></p>
+
+<p><samp>Run</samp></p>
+
+    php artisan key:generate
+
+<p><samp>Run</samp></p>
+
+    php artisan migrate
+
+<p><samp>Run</samp></p>
+
+    php artisan db:seed
+
+<p><samp>Run</samp></p>
+
+    php artisan serve
+
+<p><samp>Username: alazadheera@gmail.com</samp></p>
+<p><samp>Password: password</samp></p>

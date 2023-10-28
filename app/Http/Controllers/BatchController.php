@@ -20,7 +20,7 @@ class BatchController extends Controller
                         $query->withTrashed();
                     }])->get();
 
-         return view('batches.index', compact('batches'));
+        return view('batches.index', compact('batches'));
     }
 
     /**
