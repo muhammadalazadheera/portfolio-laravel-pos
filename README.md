@@ -1,10 +1,6 @@
 <br />
-<p align="center">
-    <img
-        src="https://res.cloudinary.com/dqv4l1mkj/image/upload/v1698367061/Documentation/laravel_portfolio_pos_kemfwh.gif"
-        style="border: 1px solid white"
-        width="85%">
-</p>
+
+![al_azad_heera](https://github.com/muhammadalazadheera/portfolio-laravel-pos/assets/76617817/806619ea-487c-4514-b78e-64fcb2637697)
 
 <h1 align="center">
     <samp>Complete Point Of Sale (POS)</samp>
