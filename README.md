@@ -8,8 +8,7 @@
 
 <p align="justify">
     <samp>
-        This project covers all the basic but required functionalities for a
-        Point of sale system like:
+        This advanced POS system will help you to manage your business in a very easy and clean way. The attractive and minimalistic design will guide you spontaneously to create invoice, tracking the product price and quantity. Overall, this system will lift the burden of managing your business and will make your life smoother.
     </samp>
 </p>
 
